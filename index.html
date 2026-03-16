@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mizu Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --black: #000; --white: #fff; --muted: rgba(255,255,255,0.5); --frame: 12vw; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Tenor Sans', 'Helvetica Neue', sans-serif; overflow-x: hidden; }
+
+    /* NAV */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; padding: 26px 40px; }
+    nav { display: flex; gap: 32px; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.14em; transition: color .3s; }
+    nav a:hover { color: var(--white); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-top: 70px; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: url('https://static.wixstatic.com/media/4eeb98_da52602c76b742ff993f21365ddfe09cf000.jpg/v1/fill/w_160,h_90,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/4eeb98_da52602c76b742ff993f21365ddfe09cf000.jpg') center/cover; filter: brightness(0.15); }
+    .logo { position: relative; z-index: 2; text-align: center; padding: 48px 0 36px; }
+    .logo-title { font-size: clamp(40px, 6.5vw, 82px); letter-spacing: 0.6em; font-weight: 400; line-height: 1; }
+    .logo-title span { letter-spacing: 0.3em; }
+    .logo-sub { font-size: 13px; letter-spacing: 0.45em; opacity: 0.65; margin-top: 12px; }
+    .hero-img { position: relative; z-index: 2; width: calc(100% - var(--frame)*2); margin: 0 auto; }
+    .hero-img img { width: 100%; aspect-ratio: 16/7; object-fit: cover; display: block; }
+    .hero-caption { text-align: center; font-size: 13px; letter-spacing: 0.05em; color: var(--white); padding: 20px 0 48px; }
+
+    /* TEXT */
+    .txt { max-width: 860px; margin: 0 auto; padding: 100px 40px; text-align: center; }
+    .txt p { font-size: clamp(13px, 1.3vw, 15px); line-height: 2.1; color: var(--white); margin-bottom: 18px; }
+    .txt p.lead { font-size: clamp(13px, 1.35vw, 16px); }
+
+    /* FRAMED IMAGES */
+    .framed { width: calc(100% - var(--frame)*2); margin: 0 auto; }
+    .framed img { width: 100%; display: block; object-fit: cover; }
+    .framed.cinema img { aspect-ratio: 21/8; }
+    .framed.wide img { aspect-ratio: 16/7; }
+
+    /* GRIDS */
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; width: calc(100% - var(--frame)*2); margin: 3px auto 0; }
+    .g2 img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+    .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; width: calc(100% - var(--frame)*2); margin: 3px auto 0; }
+    .g3 img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+
+    /* HORIZONTAL SCROLL */
+    .hscroll-outer { width: calc(100% - var(--frame)*2); margin: 60px auto; position: relative; }
+    .hscroll { display: flex; gap: 3px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; }
+    .hscroll::-webkit-scrollbar { display: none; }
+    .hscroll:active { cursor: grabbing; }
+    .hscroll .cell { flex: 0 0 calc(25% - 2px); scroll-snap-align: start; }
+    .hscroll .cell img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
+    .arrow-btn { position: absolute; right: -18px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; transition: background .2s; }
+    .arrow-btn:hover { background: rgba(255,255,255,0.2); }
+
+    /* FOOTER */
+    footer { display: flex; justify-content: space-between; align-items: center; padding: 26px 40px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 80px; }
+    footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.07em; }
+    .ft-arrows { display: flex; gap: 2px; font-size: 15px; color: var(--muted); }
+    .ft-arrows span { cursor: pointer; padding: 2px 4px; transition: color .2s; }
+    .ft-arrows span:hover { color: #fff; }
+
+    @media (max-width: 768px) {
+      :root { --frame: 12px; }
+      .g2, .g3 { grid-template-columns: 1fr; }
+      .hscroll .cell { flex: 0 0 75%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About us</a>
+    <a href="#contact">Contacts</a>
+  </nav>
+  <nav>
+    <!-- можно добавить соцсети -->
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="logo">
+    <div class="logo-title">M &nbsp;I &nbsp;Z &nbsp;U</div>
+    <div class="logo-sub">studio</div>
+  </div>
+  <div class="hero-img">
+    <img src="https://static.wixstatic.com/media/4eeb98_0ce288f9cc554e9aba082a1dd80432bd~mv2.png/v1/fill/w_980,h_551,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/yrnyr.png" alt="Mizu Studio" />
+  </div>
+  <div class="hero-caption">Mizu studio is where ideas become visuals.</div>
+</section>
+
+<!-- TEXT 1 -->
+<div class="txt" id="about">
+  <p class="lead">Mizu studio is where ideas become visuals. We design striking, story-driven content for brands and campaigns. From stills to motion, we shape emotion, identity, and attention through bold visual craft — enhanced by the creative use of neural networks and AI tools.</p>
+</div>
+
+<!-- WIDE IMAGE -->
+<div class="framed wide">
+  <img src="https://static.wixstatic.com/media/4eeb98_8c47bc6ac64a487fb001caf2bf9ced5f~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/7.jpg" alt="" />
+</div>
+
+<!-- GRID 2 -->
+<div class="g2">
+  <img src="https://static.wixstatic.com/media/4eeb98_a73b732dd4b74f11bf8cb70d70f6b145~mv2.png/v1/fill/w_980,h_551,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/core%20tec3.png" alt="" />
+  <img src="https://static.wixstatic.com/media/4eeb98_e6e4388dd2a94bc1841326eedfede305~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4.jpg" alt="" />
+</div>
+
+<!-- TEXT 2 -->
+<div class="txt">
+  <p class="lead">Our process blends intuition and innovation.</p>
+  <p>At Mizu Studio, each project begins with deep research and conceptual clarity. We collaborate closely with our clients to uncover the essence of their message — then translate it into compelling visual experiences. Whether crafting cinematic motion or expressive stills, we combine human creativity with the power of AI to push the boundaries of visual storytelling.</p>
+</div>
+
+<!-- CINEMA IMAGE -->
+<div class="framed cinema">
+  <img src="https://static.wixstatic.com/media/4eeb98_cce52549ac54402ea44fb8fae3ada44d~mv2.png/v1/fill/w_980,h_551,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/55536.png" alt="" />
+</div>
+
+<!-- GRID 3 -->
+<div class="g3">
+  <img src="https://static.wixstatic.com/media/4eeb98_ef0a06e8e4be4e25873acf4172e97279~mv2.png/v1/fill/w_980,h_551,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/grg.png" alt="" />
+  <img src="https://static.wixstatic.com/media/4eeb98_e063c084c1774e2d9bea4e7a172dd0d3~mv2.png/v1/fill/w_980,h_1302,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/bfssfv.png" alt="" />
+  <img src="https://static.wixstatic.com/media/4eeb98_8c47bc6ac64a487fb001caf2bf9ced5f~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/7.jpg" alt="" />
+</div>
+
+<!-- HORIZONTAL SCROLL -->
+<div class="hscroll-outer">
+  <div class="hscroll" id="gal">
+    <div class="cell"><img src="https://static.wixstatic.com/media/4eeb98_129053bd2a1949ff8cd533eba293a04df003.jpg/v1/fill/w_525,h_700,q_90,enc_avif,quality_auto/4eeb98_129053bd2a1949ff8cd533eba293a04df003.jpg" alt="" /></div>
+    <div class="cell"><img src="https://static.wixstatic.com/media/4eeb98_c0e903b197814c9080d92f6307354f60f003.jpg/v1/fill/w_525,h_700,q_90,enc_avif,quality_auto/4eeb98_c0e903b197814c9080d92f6307354f60f003.jpg" alt="" /></div>
+    <div class="cell"><img src="https://static.wixstatic.com/media/4eeb98_21ed9c318de9455398622f818e1580aaf003.jpg/v1/fill/w_525,h_700,q_90,enc_avif,quality_auto/4eeb98_21ed9c318de9455398622f818e1580aaf003.jpg" alt="" /></div>
+    <div class="cell"><img src="https://static.wixstatic.com/media/4eeb98_ecd90bc47c4045168f91100797a8a007f003.jpg/v1/fill/w_525,h_700,q_90,enc_avif,quality_auto/4eeb98_ecd90bc47c4045168f91100797a8a007f003.jpg" alt="" /></div>
+    <div class="cell"><img src="https://static.wixstatic.com/media/4eeb98_a99605f189d44e73b02cc3693b751950f003.jpg/v1/fill/w_525,h_700,q_90,enc_avif,quality_auto/4eeb98_a99605f189d44e73b02cc3693b751950f003.jpg" alt="" /></div>
+    <div class="cell"><img src="https://static.wixstatic.com/media/4eeb98_71aa9b1213444820ad4f4f4e403c8059f003.jpg/v1/fill/w_525,h_700,q_90,enc_avif,quality_auto/4eeb98_71aa9b1213444820ad4f4f4e403c8059f003.jpg" alt="" /></div>
+    <div class="cell"><img src="https://static.wixstatic.com/media/4eeb98_32359aa2b2c845bd8275f5677ca936def003.jpg/v1/fill/w_525,h_700,q_90,enc_avif,quality_auto/4eeb98_32359aa2b2c845bd8275f5677ca936def003.jpg" alt="" /></div>
+    <div class="cell"><img src="https://static.wixstatic.com/media/4eeb98_dd36e61401a54e3f842167d467a46bb4f003.jpg/v1/fill/w_525,h_700,q_90,enc_avif,quality_auto/4eeb98_dd36e61401a54e3f842167d467a46bb4f003.jpg" alt="" /></div>
+  </div>
+  <div class="arrow-btn" onclick="document.getElementById('gal').scrollBy({left:300,behavior:'smooth'})">→</div>
+</div>
+
+<!-- TEXT 3 -->
+<div class="txt" id="contact">
+  <p>Work that resonates. Our visuals don't just look good — they connect, provoke, and stay with the audience. From global campaigns to experimental art pieces, our work lives at the intersection of aesthetics and intention. Every frame is designed to feel — and be remembered.</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Mizu Studio</p>
+  <div class="ft-arrows">
+    <span onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</span>
+    <span onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">↓</span>
+  </div>
+</footer>
+
+<script>
+  const gal = document.getElementById('gal');
+  let down = false, sx, sl;
+  gal.addEventListener('mousedown', e => { down=true; sx=e.pageX-gal.offsetLeft; sl=gal.scrollLeft; });
+  gal.addEventListener('mouseleave', ()=>down=false);
+  gal.addEventListener('mouseup', ()=>down=false);
+  gal.addEventListener('mousemove', e => { if(!down) return; e.preventDefault(); gal.scrollLeft = sl-(e.pageX-gal.offsetLeft-sx)*1.4; });
+</script>
+
+</body>
+</html>
